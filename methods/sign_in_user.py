@@ -4,7 +4,7 @@ import json
 from classes.UsersDAO import UsersDAO
 from classes.User import User
 
-async def post_user(request: Request):
+async def sign_in_user(request: Request):
     
     # Check that the body is a json
     try:
