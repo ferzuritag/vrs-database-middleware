@@ -1,2 +1,0 @@
-def put():
-    print('delete')

@@ -1,18 +1,19 @@
-from fastapi import APIRouter
-from methods.getAllUsers import get
-from methods.postUser import post
-from methods.putUser import put
-from methods.deleteUser import delete
-from classes.Database import Database
+from fastapi import APIRouter, Request
 
-from schemas.users import users_schema
+from methods.get_user_by_id import get_user_by_id
+from methods.post_user import post_user
+from methods.delete_user import delete_user
 
 user = APIRouter()
 
-@user.get('/users')
-def get():
-    db = Database()
+@user.get('/users/{user_email}')
+def get(user_email):
+    return get_user_by_id(user_email)
 
-    users = db.getAllUsers()
+@user.post('/users')
+async def post(request: Request):
+    return await post_user(request)
 
-    return users_schema(users)
+@user.delete('/users/{user_email}')
+async def delete(user_email):
+    return delete_user(user_email)
