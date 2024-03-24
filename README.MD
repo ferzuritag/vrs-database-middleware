@@ -8,5 +8,5 @@ Vehicle Routing System.
 You can run the server using the next command.
 
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --reload --port 8000
 ```

@@ -11,6 +11,10 @@ user = APIRouter()
 def getUserInformation(user_email):
     return get_user_information(user_email)
 
+@user.get('/users/confirm-account/{user_email}/{account_confirmation_token}')
+def confirmUserAccount(user_email, account_confirmation_token):
+    return confirm_user_account(user_email,account_confirmation_token)
+
 @user.post('/users')
 async def signInUser(request: Request):
     return await sign_in_user(request)
@@ -19,6 +23,3 @@ async def signInUser(request: Request):
 async def deleteUser(user_email):
     return delete_user(user_email)
 
-@user.get('/users/confirm-account/{user_email}/{account_confirmation_token}')
-def confirmUserAccount(user_email, account_confirmation_token):
-    return confirm_user_account(user_email,account_confirmation_token)

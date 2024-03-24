@@ -1,6 +1,6 @@
 from classes.UsersDatabase import UsersDatabase
 from classes.User import User
-from bson.objectid import ObjectId
+
 from uuid import uuid4
 
 class UsersDAO:
