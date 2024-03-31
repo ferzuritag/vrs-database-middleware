@@ -1,7 +1,5 @@
 from fastapi import HTTPException
 
-from bson.objectid import ObjectId
-
 from classes.UsersDAO import UsersDAO
 from schemas.user import user_schema
 
