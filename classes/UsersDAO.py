@@ -1,6 +1,6 @@
 from classes.UsersDatabase import UsersDatabase
 from classes.User import User
-
+from classes.SMTPServer import SMTPServer
 from uuid import uuid4
 
 class UsersDAO:
@@ -13,13 +13,21 @@ class UsersDAO:
         })
     
     def insert_user(self, user: User):
-        return self.database.users_collection.insert_one({
+        confirmation_token = str(uuid4())
+
+        inserted_user =  self.database.users_collection.insert_one({
             'email': user.email,
             'password': user.password,
             'verified': user.verified,
             'active': user.active,
-            'account_confirmation_token': str(uuid4())
+            'account_confirmation_token': confirmation_token
         })
+        
+        smtp_sv = SMTPServer()
+
+        smtp_sv.send_confirmation_email(destination_email=user.email,confirmation_token=confirmation_token)
+
+        return inserted_user
     
     def delete_user_by_email(self, user_email):
         return self.database.users_collection.update_one(
