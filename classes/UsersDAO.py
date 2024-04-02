@@ -22,7 +22,11 @@ class UsersDAO:
         })
     
     def delete_user_by_email(self, user_email):
-        return self.database.database.users_collection.update_one({'email': user_email},{
+        return self.database.users_collection.update_one(
+        {
+            'email': user_email
+        }, 
+        {
             '$set': {
                 'active': False
             }

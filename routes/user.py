@@ -7,7 +7,8 @@ from methods.delete_user import delete_user
 from methods.confirm_user_account import confirm_user_account
 
 from security.checkAPIKey import check_api_key
-from security.check_token import check_token
+from security.check_authorization_header import check_authorization_header
+from security.check_if_user_allowed_to_modify_information import check_if_user_allowed_to_modify_information
 
 user = APIRouter()
 
@@ -26,5 +27,6 @@ async def signInUser(request: Request):
 
 @user.delete('/users/{user_email}')
 async def deleteUser(user_email, authorization = Header(None)):
-    check_token(token=authorization)
+    check_authorization_header(authorization)
+    check_if_user_allowed_to_modify_information(authorization_header=authorization, email=user_email)
     return delete_user(user_email)
