@@ -14,5 +14,5 @@ uvicorn main:app --reload --port 8000
 ## HOW TO BUILD
 
 ```bash
-docker build vrs-user-service .
+docker build -t vrs-users-service .
 ```
