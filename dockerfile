@@ -1,14 +1,19 @@
-# Using mongo 7.0 image
-FROM mongo:7.0
+# Usa Alpine Linux como base
+FROM python:3.10.12-alpine
 
+# Establece el directorio de trabajo en /app
 WORKDIR /app
 
-# Copy the folder on /app
-COPY . .
+# Copia el archivo requirements.txt al contenedor
+COPY requirements.txt .
 
-# Install python 3
-RUN apt-get update && apt-get install -y python3 python3-pip && pip install -r requirements.txt
+# Instala las dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia todo el contenido del directorio actual al contenedor en /app
+COPY . .
 
 EXPOSE 80
 
-CMD ["uvicorn", "main:app", "--port 80", "--host 0.0.0.0"]
+# Comando para ejecutar el servidor FastAPI
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
